@@ -1,5 +1,5 @@
 # telegram.py
-A slim script, written in python, allows you to send messeges via your telegram bot.
+A slim script, written in python, allows you to send messages via your telegram bot.
 
 Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 
@@ -72,4 +72,3 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 ## Using the binary:
 
 A Linux binary version of this script is available on [releases](https://github.com/yshalsager/telegram.py/releases), compiled with [pyinstaller](https://www.pyinstaller.org/).
-
