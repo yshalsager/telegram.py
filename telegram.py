@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+
 from requests import post
 
 
@@ -42,6 +43,7 @@ def arg_parse():
 
 
 def send_message():
+    global r, status, response
     params = (
         ('chat_id', chat),
         ('text', message),
@@ -49,10 +51,13 @@ def send_message():
         ('disable_web_page_preview', preview)
     )
     url = "https://api.telegram.org/bot" + token + "/sendMessage"
-    post(url, params=params)
+    r = post(url, params=params)
+    status = r.status_code
+    response = r.reason
 
 
 def send_photo():
+    global r, status, response
     files = {
         'chat_id': (None, chat),
         'caption': (None, caption),
@@ -60,10 +65,13 @@ def send_photo():
         'photo': (photo, open(photo, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendPhoto"
-    post(url, files=files)
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
 
 
 def send_video():
+    global r, status, response
     files = {
         'chat_id': (None, chat),
         'caption': (None, caption),
@@ -71,10 +79,13 @@ def send_video():
         'video': (video, open(video, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendVideo"
-    post(url, files=files)
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
 
 
 def send_audio():
+    global r, status, response
     files = {
         'chat_id': (None, chat),
         'caption': (None, caption),
@@ -82,10 +93,13 @@ def send_audio():
         'audio': (audio, open(audio, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendAudio"
-    post(url, files=files)
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
 
 
 def send_file():
+    global r, status, response
     files = {
         'chat_id': (None, chat),
         'caption': (None, caption),
@@ -93,20 +107,38 @@ def send_file():
         'document': (file, open(file, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendDocument"
-    post(url, files=files)
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
+
+
+def req():
+    if send == "text":
+        send_message()
+    elif send == "photo":
+        send_photo()
+    elif send == "video":
+        send_video()
+    elif send == "audio":
+        send_audio()
+    elif send == "file":
+        send_file()
+    else:
+        print("Error!")
+
+
+def req_status():
+    if status == 200:
+        print("Message sent")
+    elif status == 400:
+        print("Bad recipient / Wrong text format")
+    elif status == 401:
+        print("Wrong / Unauthorized token")
+    else:
+        print("Unknown error")
+    print("Response: " + response)
 
 
 arg_parse()
-
-if send == "text":
-    send_message()
-elif send == "photo":
-    send_photo()
-elif send == "video":
-    send_video()
-elif send == "audio":
-    send_audio()
-elif send == "file":
-    send_file()
-else:
-    print("Error!")
+req()
+req_status()
