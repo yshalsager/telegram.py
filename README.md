@@ -16,7 +16,7 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 
 * Get the latest copy of `telegram.py` and run it with:
   * The required arguments: `(-t TOKEN | -c CHAT)` and one of the follwing options `(-M MESSAGE | -P PHOTO | -V VIDEO | -A AUDIO | -F FILE)`
-  * Optional arguments: `(-p yes/no)` to disable/enable URL preview. `(-c TEXT)` to add a caption with Media/Documents.
+  * Optional arguments: `(-p yes/no)` to disable/enable URL preview. `(-c TEXT)` to add a caption with Media/Documents. `(-s yes/no)` to disable/enable message notification sound.
 * The default prase mode is `Markdown`. If you want to use HTML use the flag `(-m HTML)`
 
 ## Some examples of usage:
@@ -53,13 +53,25 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 
 `python telegram.py -t xxxxx:xxxxx -c @TestChannel -m HTML -P avatar.png -C "<b>Logo</b>"`
 
+- Sending GIF:
+
+`python telegram.py -t xxxxx:xxxxx -c @TestChannel -G small.gif`
+
 - Sending video:
 
 `python telegram.py -t xxxxx:xxxxx -c @TestChannel -V video.mp4`
 
+- Sending video note:
+
+`python telegram.py -t xxxxx:xxxxx -c @TestChannel -N video.mp4`
+
 - Sending audio:
 
 `python telegram.py -t xxxxx:xxxxx -c @TestChannel -A audio.mp3`
+
+- Sending voice message:
+
+`python telegram.py -t xxxxx:xxxxx -c @TestChannel -O voice.mp3`
 
 - Sending file:
 
