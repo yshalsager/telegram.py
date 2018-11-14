@@ -4,11 +4,12 @@ from requests import post
 
 
 def arg_parse():
-    global token, chat, message, mode, preview, photo, caption, video, audio, file, send
+    global token, chat, message, mode, preview, photo, gif, caption, video, audio, file, send
     switches = ArgumentParser()
     group = switches.add_mutually_exclusive_group(required=True)
     group.add_argument("-M", "--message", help="Text message")
     group.add_argument("-P", "--photo", help="Photo path")
+    group.add_argument("-G", "--gif", help="GIF Photo path")
     group.add_argument("-V", "--video", help="Video path")
     group.add_argument("-A", "--audio", help="Audio path")
     group.add_argument("-F", "--file", help="File path")
@@ -23,6 +24,7 @@ def arg_parse():
     chat = args["chat"]
     message = args["message"]
     photo = args["photo"]
+    gif = args["gif"]
     video = args["video"]
     audio = args["audio"]
     file = args["file"]
@@ -34,6 +36,8 @@ def arg_parse():
         send = "text"
     elif photo is not None:
         send = "photo"
+    elif gif is not None:
+        send = "gif"
     elif video is not None:
         send = "video"
     elif audio is not None:
@@ -65,6 +69,20 @@ def send_photo():
         'photo': (photo, open(photo, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendPhoto"
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
+
+
+def send_gif():
+    global r, status, response
+    files = {
+        'chat_id': (None, chat),
+        'caption': (None, caption),
+        'parse_mode': (None, mode),
+        'animation': (gif, open(gif, 'rb')),
+    }
+    url = "https://api.telegram.org/bot" + token + "/sendAnimation"
     r = post(url, files=files)
     status = r.status_code
     response = r.reason
@@ -117,6 +135,8 @@ def req():
         send_message()
     elif send == "photo":
         send_photo()
+    elif send == "gif":
+        send_gif()
     elif send == "video":
         send_video()
     elif send == "audio":
