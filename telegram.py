@@ -4,7 +4,7 @@ from requests import post
 
 
 def arg_parse():
-    global token, chat, message, mode, preview, photo, gif, caption, video, note, audio, voice, file, send
+    global token, chat, message, mode, preview, caption, silent, photo, gif, video, note, audio, voice, file, send
     switches = ArgumentParser()
     group = switches.add_mutually_exclusive_group(required=True)
     group.add_argument("-M", "--message", help="Text message")
@@ -19,6 +19,7 @@ def arg_parse():
     switches.add_argument("-c", "--chat", required=True, help="Chat to use as recipient")
     switches.add_argument("-m", "--mode", help="Text parse mode - HTML/Markdown", default="Markdown")
     switches.add_argument("-p", "--preview", help="Disable URL preview - yes/no", default="yes")
+    switches.add_argument("-s", "--silent", help="Disable Notification Sound - yes/no", default="no")
     switches.add_argument("-C", "--caption", help="Media/Document caption")
 
     args = vars(switches.parse_args())
@@ -34,6 +35,7 @@ def arg_parse():
     file = args["file"]
     mode = args["mode"]
     preview = args["preview"]
+    silent = args["silent"]
     caption = args["caption"]
 
     if message is not None:
@@ -60,6 +62,7 @@ def send_message():
         ('chat_id', chat),
         ('text', message),
         ('parse_mode', mode),
+        ('disable_notification', silent),
         ('disable_web_page_preview', preview)
     )
     url = "https://api.telegram.org/bot" + token + "/sendMessage"
@@ -74,6 +77,7 @@ def send_photo():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'photo': (photo, open(photo, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendPhoto"
@@ -88,6 +92,7 @@ def send_gif():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'animation': (gif, open(gif, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendAnimation"
@@ -102,6 +107,7 @@ def send_video():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'video': (video, open(video, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendVideo"
@@ -115,6 +121,7 @@ def send_note():
     files = {
         'chat_id': (None, chat),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'video_note': (note, open(note, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendVideoNote"
@@ -129,6 +136,7 @@ def send_audio():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'audio': (audio, open(audio, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendAudio"
@@ -143,6 +151,7 @@ def send_voice():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'voice': (voice, open(voice, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendVoice"
@@ -157,6 +166,7 @@ def send_file():
         'chat_id': (None, chat),
         'caption': (None, caption),
         'parse_mode': (None, mode),
+        'disable_notification': (None, silent),
         'document': (file, open(file, 'rb')),
     }
     url = "https://api.telegram.org/bot" + token + "/sendDocument"
