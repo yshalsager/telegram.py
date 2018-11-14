@@ -69,6 +69,6 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 
 `python telegram.py -t xxxxx:xxxxx -c @TestChannel -m HTML -F file.rar -C "<b>File</b>"`
 
-## Using the binary:
+## Using binary files:
 
-A Linux binary version of this script is available on [releases](https://github.com/yshalsager/telegram.py/releases), compiled with [pyinstaller](https://www.pyinstaller.org/).
+If you want to use binary executable file for Windows and Linux check [releases](https://github.com/yshalsager/telegram.py/releases)! It's compiled with [pyinstaller](https://www.pyinstaller.org/).
