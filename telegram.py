@@ -4,13 +4,14 @@ from requests import post
 
 
 def arg_parse():
-    global token, chat, message, mode, preview, photo, gif, caption, video, audio, voice, file, send
+    global token, chat, message, mode, preview, photo, gif, caption, video, note, audio, voice, file, send
     switches = ArgumentParser()
     group = switches.add_mutually_exclusive_group(required=True)
     group.add_argument("-M", "--message", help="Text message")
     group.add_argument("-P", "--photo", help="Photo path")
     group.add_argument("-G", "--gif", help="GIF Photo path")
     group.add_argument("-V", "--video", help="Video path")
+    group.add_argument("-N", "--note", help="Video Note path")
     group.add_argument("-A", "--audio", help="Audio path")
     group.add_argument("-O", "--voice", help="Voice path")
     group.add_argument("-F", "--file", help="File path")
@@ -27,6 +28,7 @@ def arg_parse():
     photo = args["photo"]
     gif = args["gif"]
     video = args["video"]
+    note = args["note"]
     audio = args["audio"]
     voice = args["voice"]
     file = args["file"]
@@ -42,6 +44,8 @@ def arg_parse():
         send = "gif"
     elif video is not None:
         send = "video"
+    elif note is not None:
+        send = "note"
     elif audio is not None:
         send = "audio"
     elif voice is not None:
@@ -106,6 +110,19 @@ def send_video():
     response = r.reason
 
 
+def send_note():
+    global r, status, response
+    files = {
+        'chat_id': (None, chat),
+        'parse_mode': (None, mode),
+        'video_note': (note, open(note, 'rb')),
+    }
+    url = "https://api.telegram.org/bot" + token + "/sendVideoNote"
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
+
+
 def send_audio():
     global r, status, response
     files = {
@@ -157,6 +174,8 @@ def req():
         send_gif()
     elif send == "video":
         send_video()
+    elif send == "note":
+        send_note()
     elif send == "audio":
         send_audio()
     elif send == "voice":
