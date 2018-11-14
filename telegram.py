@@ -4,7 +4,7 @@ from requests import post
 
 
 def arg_parse():
-    global token, chat, message, mode, preview, photo, gif, caption, video, audio, file, send
+    global token, chat, message, mode, preview, photo, gif, caption, video, audio, voice, file, send
     switches = ArgumentParser()
     group = switches.add_mutually_exclusive_group(required=True)
     group.add_argument("-M", "--message", help="Text message")
@@ -12,6 +12,7 @@ def arg_parse():
     group.add_argument("-G", "--gif", help="GIF Photo path")
     group.add_argument("-V", "--video", help="Video path")
     group.add_argument("-A", "--audio", help="Audio path")
+    group.add_argument("-O", "--voice", help="Voice path")
     group.add_argument("-F", "--file", help="File path")
     switches.add_argument("-t", "--token", required=True, help="Telegram bot token")
     switches.add_argument("-c", "--chat", required=True, help="Chat to use as recipient")
@@ -27,6 +28,7 @@ def arg_parse():
     gif = args["gif"]
     video = args["video"]
     audio = args["audio"]
+    voice = args["voice"]
     file = args["file"]
     mode = args["mode"]
     preview = args["preview"]
@@ -42,6 +44,8 @@ def arg_parse():
         send = "video"
     elif audio is not None:
         send = "audio"
+    elif voice is not None:
+        send = "voice"
     elif file is not None:
         send = "file"
 
@@ -116,6 +120,20 @@ def send_audio():
     response = r.reason
 
 
+def send_voice():
+    global r, status, response
+    files = {
+        'chat_id': (None, chat),
+        'caption': (None, caption),
+        'parse_mode': (None, mode),
+        'voice': (voice, open(voice, 'rb')),
+    }
+    url = "https://api.telegram.org/bot" + token + "/sendVoice"
+    r = post(url, files=files)
+    status = r.status_code
+    response = r.reason
+
+
 def send_file():
     global r, status, response
     files = {
@@ -141,6 +159,8 @@ def req():
         send_video()
     elif send == "audio":
         send_audio()
+    elif send == "voice":
+        send_voice()
     elif send == "file":
         send_file()
     else:
