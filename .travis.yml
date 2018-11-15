@@ -23,6 +23,12 @@ deploy:
     tags: false
     repo: yshalsager/telegram.py
     branch: master
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
 branches:
   except:
     - /^(?i:untagged)-.*$/
