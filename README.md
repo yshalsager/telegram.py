@@ -23,9 +23,9 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 ## Using the script
 
 * Get the latest copy of `telegram.py` and run it with:
-  * The required arguments: `(-t TOKEN | -c CHAT)` and one of the follwing options `(-M MESSAGE | -P PHOTO | -V VIDEO | -A AUDIO | -F FILE)`
+  * The required arguments: `(-t TOKEN | -c CHAT)` and one of the following options `(-M MESSAGE | -P PHOTO | -V VIDEO | -A AUDIO | -F FILE)`
   * Optional arguments: `(-p yes/no)` to disable/enable URL preview. `(-c TEXT)` to add a caption with Media/Documents. `(-s yes/no)` to disable/enable message notification sound.
-* The default prase mode is `Markdown`. If you want to use HTML use the flag `(-m HTML)`
+* The default parse mode is `Markdown`. If you want to use HTML use the flag `(-m HTML)`
 
 ## Some examples of usage:
 
@@ -92,3 +92,6 @@ Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
 ## Using binary files:
 
 If you want to use binary executable file for Windows and Linux check [releases](https://github.com/yshalsager/telegram.py/releases)! It's compiled with [pyinstaller](https://www.pyinstaller.org/).
+
+Note that builds which automatically generated using travis-ci doesn't have a tag. If you prefer to go for stable release get the latest tagged one.
+
