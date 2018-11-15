@@ -58,142 +58,89 @@ def arg_parse():
 
 def send_message():
     global r, status, response
-    params = (
-        ('chat_id', chat),
-        ('text', message),
-        ('parse_mode', mode),
-        ('disable_notification', silent),
-        ('disable_web_page_preview', preview)
-    )
-    url = "https://api.telegram.org/bot" + token + "/sendMessage"
-    r = post(url, params=params)
-    status = r.status_code
-    response = r.reason
-
-
-def send_photo():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'photo': (photo, open(photo, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendPhoto"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_gif():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'animation': (gif, open(gif, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendAnimation"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_video():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'video': (video, open(video, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendVideo"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_note():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'video_note': (note, open(note, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendVideoNote"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_audio():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'audio': (audio, open(audio, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendAudio"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_voice():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'voice': (voice, open(voice, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendVoice"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def send_file():
-    global r, status, response
-    files = {
-        'chat_id': (None, chat),
-        'caption': (None, caption),
-        'parse_mode': (None, mode),
-        'disable_notification': (None, silent),
-        'document': (file, open(file, 'rb')),
-    }
-    url = "https://api.telegram.org/bot" + token + "/sendDocument"
-    r = post(url, files=files)
-    status = r.status_code
-    response = r.reason
-
-
-def req():
     if send == "text":
-        send_message()
+        params = (
+            ('chat_id', chat),
+            ('text', message),
+            ('parse_mode', mode),
+            ('disable_notification', silent),
+            ('disable_web_page_preview', preview)
+        )
+        url = "https://api.telegram.org/bot" + token + "/sendMessage"
+        r = post(url, params=params)
     elif send == "photo":
-        send_photo()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'photo': (photo, open(photo, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendPhoto"
+        r = post(url, files=files)
     elif send == "gif":
-        send_gif()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'animation': (gif, open(gif, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendAnimation"
+        r = post(url, files=files)
     elif send == "video":
-        send_video()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'video': (video, open(video, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendVideo"
+        r = post(url, files=files)
     elif send == "note":
-        send_note()
+        files = {
+            'chat_id': (None, chat),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'video_note': (note, open(note, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendVideoNote"
+        r = post(url, files=files)
     elif send == "audio":
-        send_audio()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'audio': (audio, open(audio, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendAudio"
+        r = post(url, files=files)
     elif send == "voice":
-        send_voice()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'voice': (voice, open(voice, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendVoice"
+        r = post(url, files=files)
     elif send == "file":
-        send_file()
+        files = {
+            'chat_id': (None, chat),
+            'caption': (None, caption),
+            'parse_mode': (None, mode),
+            'disable_notification': (None, silent),
+            'document': (file, open(file, 'rb')),
+        }
+        url = "https://api.telegram.org/bot" + token + "/sendDocument"
+        r = post(url, files=files)
     else:
         print("Error!")
+    status = r.status_code
+    response = r.reason
 
 
 def req_status():
@@ -209,5 +156,5 @@ def req_status():
 
 
 arg_parse()
-req()
+send_message()
 req_status()
