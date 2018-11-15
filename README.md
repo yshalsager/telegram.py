@@ -1,4 +1,12 @@
 # telegram.py
+[![Build Status](https://travis-ci.org/yshalsager/telegram.py.svg?branch=master)](https://travis-ci.org/yshalsager/telegram.py)
+
+[![GitHub release](https://img.shields.io/github/release/yshalsager/telegram.py.svg)](https://github.com/yshalsager/telegram.py/releases/)
+[![Download](https://img.shields.io/github/downloads/yshalsager/telegram.py/total.svg)](https://github.com/yshalsager/telegram.py/releases/latest)
+
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
 A slim script, written in python, allows you to send messages via your telegram bot.
 
 Inspired from [telegram.sh](https://github.com/fabianonline/telegram.sh/)
