@@ -4,7 +4,7 @@ from requests import post
 
 
 def arg_parse():
-    global token, chat, message, mode, preview, caption, silent, photo, gif, video, note, audio, voice, file, send
+    global token, chat, message, mode, preview, caption, silent, photo, gif, video, note, audio, voice, file, send, out
     switches = ArgumentParser()
     group = switches.add_mutually_exclusive_group(required=True)
     group.add_argument("-M", "--message", help="Text message")
@@ -20,6 +20,7 @@ def arg_parse():
     switches.add_argument("-m", "--mode", help="Text parse mode - HTML/Markdown", default="Markdown")
     switches.add_argument("-p", "--preview", help="Disable URL preview - yes/no", default="yes")
     switches.add_argument("-s", "--silent", help="Disable Notification Sound - yes/no", default="no")
+    switches.add_argument("-d", "--output", help="Disable Script output - yes/no", default="yes")
     switches.add_argument("-C", "--caption", help="Media/Document caption")
 
     args = vars(switches.parse_args())
@@ -36,6 +37,7 @@ def arg_parse():
     mode = args["mode"]
     preview = args["preview"]
     silent = args["silent"]
+    out = args["output"]
     caption = args["caption"]
 
     if message is not None:
@@ -144,15 +146,16 @@ def send_message():
 
 
 def req_status():
-    if status == 200:
-        print("Message sent")
-    elif status == 400:
-        print("Bad recipient / Wrong text format")
-    elif status == 401:
-        print("Wrong / Unauthorized token")
-    else:
-        print("Unknown error")
-    print("Response: " + response)
+    if out == 'yes':
+        if status == 200:
+            print("Message sent")
+        elif status == 400:
+            print("Bad recipient / Wrong text format")
+        elif status == 401:
+            print("Wrong / Unauthorized token")
+        else:
+            print("Unknown error")
+        print("Response: " + response)
 
 
 arg_parse()
